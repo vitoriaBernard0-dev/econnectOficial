@@ -23,7 +23,7 @@ $sql = "INSERT INTO faleconosco (faleconosco_name, faleconosco_email, faleconosc
 
 if ($conn->query($sql) === TRUE) {
   echo "<script>
-          alert('Mensagem enviada com sucesso!');
+          alert('Mensagem enviada com sucesso!Aguarde nossa equipe entrar em contato com você!');
           window.location.href = 'index.html'; // Redireciona para a página inicial
         </script>";
 } else {

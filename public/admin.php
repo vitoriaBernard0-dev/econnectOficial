@@ -95,6 +95,34 @@ $result = $conn->query($sql);
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
+        .btn-edit, .btn-delete {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 0 5px;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .btn-edit {
+            background-color: #4caf50;
+        }
+
+        .btn-edit:hover {
+            background-color: #45a049;
+        }
+
+        .btn-delete {
+            background-color: #f44336;
+        }
+
+        .btn-delete:hover {
+            background-color: #e53935;
+        }
     </style>
 </head>
 <body>
@@ -123,8 +151,8 @@ $result = $conn->query($sql);
                 echo "<td>" . $row['faleconosco_email'] . "</td>";
                 echo "<td>" . $row['faleconosco_message'] . "</td>";
                 echo "<td>
-                        <a href='editar.php?id=" . $row['id'] . "'>Editar</a> | 
-                        <a href='excluir.php?id=" . $row['id'] . "' onclick='return confirm(\"Tem certeza que deseja excluir?\");'>Excluir</a>
+                        <a href='editar.php?id=" . $row['id'] . "' class='btn-edit'>Editar</a> 
+                        <a href='excluir.php?id=" . $row['id'] . "' class='btn-delete' onclick='return confirm(\"Tem certeza que deseja excluir?\");'>Excluir</a>
                       </td>";
                 echo "</tr>";
             }
