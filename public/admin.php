@@ -141,17 +141,17 @@ $result = $conn->query($sql);
         <?php
         if ($result->num_rows > 0) {
             echo "<table>";
-            echo "<tr><th>ID</th><th>Nome</th><th>Email</th><th>Mensagem</th><th>Ações</th></tr>";
+            // Remove o cabeçalho de ID
+            echo "<tr><th>Nome</th><th>Email</th><th>Mensagem</th><th>Ações</th></tr>";
 
             // Loop pelos resultados e exibição na tabela com botões de Editar e Excluir
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>" . $row['id'] . "</td>";
                 echo "<td>" . $row['faleconosco_name'] . "</td>";
                 echo "<td>" . $row['faleconosco_email'] . "</td>";
                 echo "<td>" . $row['faleconosco_message'] . "</td>";
                 echo "<td>
-                        <a href='editar.php?id=" . $row['id'] . "' class='btn-edit'>Editar</a> 
+                      
                         <a href='excluir.php?id=" . $row['id'] . "' class='btn-delete' onclick='return confirm(\"Tem certeza que deseja excluir?\");'>Excluir</a>
                       </td>";
                 echo "</tr>";
