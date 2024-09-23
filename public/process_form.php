@@ -22,14 +22,18 @@ $message = $_POST['message'];
 $sql = "INSERT INTO faleconosco (faleconosco_name, faleconosco_email, faleconosco_message) VALUES ('$name', '$email', '$message')";
 
 if ($conn->query($sql) === TRUE) {
+  // Retorna sucesso via JavaScript
   echo "<script>
-          alert('Mensagem enviada com sucesso!Aguarde nossa equipe entrar em contato com você!');
-          window.location.href = 'index.html'; // Redireciona para a página inicial
+          window.onload = function() {
+            showModal('Mensagem enviada com sucesso! Aguarde nossa equipe entrar em contato.');
+          };
         </script>";
 } else {
+  // Retorna erro via JavaScript
   echo "<script>
-          alert('Erro: " . $conn->error . "');
-          window.location.href = 'index.html'; // Redireciona para a página inicial
+          window.onload = function() {
+            showModal('Erro ao enviar mensagem: " . $conn->error . "');
+          };
         </script>";
 }
 

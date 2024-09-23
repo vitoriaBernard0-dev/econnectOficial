@@ -1,3 +1,42 @@
+<?php
+// Conectar ao banco de dados
+$hostname = 'localhost';
+$bancodedados = 'econnect';
+$usuario = 'root';
+$senha = '';
+
+// Criando a conexão
+$conn = new mysqli($hostname, $usuario, $senha, $bancodedados);
+
+// Verificar a conexão
+if ($conn->connect_error) {
+  die("Falha na conexão: " . $conn->connect_error);
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  // Receber dados do formulário
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  $message = $_POST['message'];
+
+  // Inserir os dados na tabela faleconosco
+  $sql = "INSERT INTO faleconosco (faleconosco_name, faleconosco_email, faleconosco_message) VALUES ('$name', '$email', '$message')";
+
+  if ($conn->query($sql) === TRUE) {
+    // Redireciona para a página de sucesso com um parâmetro indicando o sucesso
+    header("Location: index.php?status=success");
+    exit();
+  } else {
+    // Redireciona para a página de erro com um parâmetro indicando a falha
+    header("Location: index.php?status=error");
+    exit();
+  }
+}
+
+// Fechar a conexão
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en-US" dir="ltr">
 
@@ -5,14 +44,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
   <!-- ===============================================-->
   <!--    Document Title-->
   <!-- ===============================================-->
   <title>Econnect</title>
-
-
   <!-- ===============================================-->
   <!--    Favicons-->
   <!-- ===============================================-->
@@ -24,11 +59,11 @@
   <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
   <meta name="theme-color" content="#ffffff">
   <script src="assets/js/config.js"></script>
-
-
+  <link rel="stylesheet" href="./assets/css/theme.css">
   <!-- ===============================================-->
   <!--    Stylesheets-->
   <!-- ===============================================-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,14 +73,9 @@
   <link href="assets/css/user-rtl.css" rel="stylesheet" id="user-style-rtl">
   <link href="assets/css/user.css" rel="stylesheet" id="user-style-default">
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-
-
-
 </head>
 
-
 <body>
-
   <!-- ===============================================-->
   <!--    Main Content-->
   <!-- ===============================================-->
@@ -99,79 +129,51 @@
         </div>
       </section>
     </div>
-    <style>
-      #rotating-text {
-        display: inline-block;
-        transition: opacity 0.5s ease-in-out;
-      }
 
-      .hidden {
-        opacity: 0;
-      }
-    </style>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const texts = ["pessoas", "tecnologia", "sustentabilidade"];
-        let currentIndex = 0;
-        const rotatingTextElement = document.getElementById("rotating-text");
-    
-        function rotateText() {
-          // Adiciona classe para esconder o texto antes da troca
-          rotatingTextElement.classList.add("hidden");
-    
-          setTimeout(() => {
-            // Troca o texto
-            rotatingTextElement.textContent = texts[currentIndex];
-            rotatingTextElement.classList.remove("hidden");
-            currentIndex = (currentIndex + 1) % texts.length;
-          }, 500); // 500ms coincide com a transição do CSS
-        }
-    
-        // Troca o texto a cada 3 segundos
-        setInterval(rotateText, 3000);
-      });
-    </script>
-    
-    <div class="row g-4 g-lg-6 g-xl-7 align-items-center">
+    <div class="row g-4 g-lg-6 g-xl-7 align-items-center container-custom">
       <div class="col-12 col-lg-6 order-1 order-lg-0">
-        <h1 class="fs-5 fs-md-3 fs-xxl-2 text-secondary text-capitalize fw-light mb-4">Porque descartar <br
-            class="d-none d-md-block d-lg-none" /><span class="fw-bold">Corretamente? </span><br
-            class="d-none d-xl-block d-xxl-none" /><br class="d-sm-none" /></h1>
+        <h1 class="fs-5 fs-md-3 fs-xxl-2 text-secondary text-capitalize fw-light mb-4">Porque descartar <br class="d-none d-md-block d-lg-none" /><span class="fw-bold">Corretamente? </span><br class="d-none d-xl-block d-xxl-none" /><br class="d-sm-none" /></h1>
         <p class="fs-8 fs-md-11 fs-xxl-7 text-primary mb-5 mb-lg-6 mb-xl-7 fw-light">
           O futuro do planeta está em nossas mãos, e cada escolha conta.
           Descarte seu lixo corretamente hoje para garantir um amanhã
           sustentável. Pequenas ações podem ter um grande impacto ambiental.
         </p>
       </div>
-      <div class="col-12 col-lg-6 order-0 order-lg-1"><img class="img-fluid w-50 w-lg-100"
-          src="assets/img/Hero/planting.png" alt="" /></div>
+      <div class="col-12 col-lg-6 order-0 order-lg-1">
+        <img class="img-fluid w-50 w-lg-100" src="assets/img/Hero/planting.png" alt="" />
+      </div>
     </div>
-    </div>
-    </section>
-    <section class="mb-9 mb-lg-10 mb-xxl-11">
+    <section class="mb-9 mb-lg-10 mb-xxl-11 px-4 px-lg-5">
       <div class="row g-4">
-
         <div class="col-12 col-lg-4 text-center mx-auto">
           <img class="mb-3" src="assets/img/icons/Counter_1.png" alt="" />
-          <h1 class="text-secondary fs-4 fs-lg-3 fs-xl-2 counter-delivared"
-            data-countup='{"endValue": 62000000,"autoIncreasing":true}'
-            style="font-variant-numeric: lining-nums proportional-nums;">0</h1>
+          <h1 class="text-secondary fs-4 fs-lg-3 fs-xl-2 counter-delivared" data-countup='{"endValue": 62000000,"autoIncreasing":true}' style="font-variant-numeric: lining-nums proportional-nums;">0</h1>
           <p class="text-success fs-7 fs-xl-6 fw-bold mb-0">
             Quantidade de lixo <br class="d-none d-xl-block d-xxl-none" />Eletrônico produzido no mundo.
           </p>
         </div>
-
       </div>
     </section>
+
+
+    </div>
+    </section>
     <section class="mb-9 mb-lg-10 mb-xxl-11 text-center text-lg-start" id="about">
-      <h1 class="fs-5 fs-lg-3 fs-xl-2 text-secondary text-capitalize fw-light mb-x1"> <span class="fw-bold">Feedback
-        </span>é<br />a <span class="fw-bold">alma do nosso serviço</span></h1>
-      <div class="row mb-7 mb-lg-8 mb-xl-9 gap-3">
-        <div class="col-12 col-lg">
-          <p class="text-black fs-10 fs-md-9 fs-xxl-8 lh-xl mb-0 line-clamp-5">Na nossa jornada de aprimoramento
-            contínuo, valorizamos imensamente os feedbacks que recebemos dos nossos usuários. Confira alguns dos
-            comentários que já recebemos:</p>
+      <div class="container-custom">
+        <h1 class="fs-5 fs-lg-3 fs-xl-2 text-secondary text-capitalize fw-light mb-x1">
+          <span class="fw-bold">Feedback</span> é<br />
+          a <span class="fw-bold">alma do nosso serviço</span>
+        </h1>
+        <div class="row mb-7 mb-lg-8 mb-xl-9 gap-3">
+          <div class="col-12 col-lg">
+            <p class="text-black fs-10 fs-md-9 fs-xxl-8 lh-xl mb-0 line-clamp-5">
+              Na nossa jornada de aprimoramento contínuo, valorizamos imensamente os feedbacks que recebemos dos nossos usuários.
+              Confira alguns dos comentários que já recebemos:
+            </p>
+          </div>
         </div>
+      </div>
+
 
       </div>
       <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center mb-8 mb-lg-10"> <img
@@ -240,90 +242,136 @@
       </div>
     </section>
     <section class="mb-9 mb-lg-10 mb-xxl-11 text-center text-md-start card-slider" id="products">
-      <div class="mb-6 mb-lg-7 mb-xl-10" id="slider-1">
-        <h1 class="fs-5 fs-md-3 fs-xxl-2 text-secondary text-capitalize fw-light mb-13 mb-lg-7"> <span
-            class="fw-bold">Linhas</span> de descarte</h1>
+      <div class="container-custom">
+        <div class="mb-6 mb-lg-7 mb-xl-10" id="slider-1">
+          <h1 class="fs-5 fs-md-3 fs-xxl-2 text-secondary text-capitalize fw-light mb-13 mb-lg-7"> <span
+              class="fw-bold">Linhas</span> de descarte</h1>
+          <div class="mb-4 mb-lg-0">
+            <div class="swiper-theme-container position-relative">
+              <div class="swiper-container theme-slider"
+                data-swiper='{"spaceBetween":32,"loop":true,"loopedSlides":5,"breakpoints":{"0":{"slidesPerView":1},"768":{"slidesPerView":2},"1024":{"slidesPerView":3}}}'>
+                <div class="swiper-wrapper">
+                  <div class="product-card swiper-slide">
+                    <div class="product-card-top" style="background-image: url('assets/img/products/products/1.png')">
+                      <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
+                          href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Política de descarte </a>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
+                      <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Conheça as
+                        Políticas de descarte
+                      </h3>
+                      <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">Existem várias
+                        linhas de descarte, cada uma para tipos específicos de resíduos.</p>
+                    </div>
+                  </div>
+                  <div class="product-card swiper-slide">
+                    <div class="product-card-top"
+                      style="background-image: url('assets/img/products/products/marrom.png')">
+                      <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
+                          href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Política de descarte </a>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
+                      <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Linha Marrom
+                      </h3>
+                      <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">É
+                        destinada ao descarte de aparelhos de som, TVs, equipamentos de DVD/VHS e televisores de tubo e
+                        plasma. Inclui também filmadores e semelhantes. </p>
+                    </div>
+                  </div>
+                  <div class="product-card swiper-slide">
+                    <div class="product-card-top" style="background-image: url('assets/img/products/products/azul.png')">
+                      <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
+                          href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Política de descarte </a>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
+                      <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Linha Azul
+                      </h3>
+                      <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">A azul é voltada
+                        ao
+                        descarte de pequenos eletrodomésticos e ferramentas elétricas. Inclui torradeiras, batedeiras,
+                        aspiradores de pó, ventiladores, mixers, secadores de cabelo, ferramentas elétricas, calculadoras
+                        e rádios.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="product-card swiper-slide">
+                    <div class="product-card-top" style="background-image: url('assets/img/products/products/verde.png')">
+                      <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
+                          href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Política de descarte </a>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
+                      <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Linha Verde
+                      </h3>
+                      <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">Nela, a gente
+                        pode jogar fora aqueles eletrônicos que a gente não usa mais, como computadores, celulares e
+                        tablets.</p>
+                    </div>
+                  </div>
+                  <div class="product-card swiper-slide">
+                    <div class="product-card-top"
+                      style="background-image: url('assets/img/products/products/branca.png')">
+                      <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
+                          href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Política de descarte</a>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
+                      <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Linha Branca
+                      </h3>
+                      <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">"A linha branca é
+                        para o descarte de grandes eletrodomésticos, como geladeiras, freezers, máquinas de lavar, fogões
+                        e ar condicionados. Inclui também micro-ondas e outros equipamentos similares. Deposite esses
+                        itens nesta linha para um descarte apropriado </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="slider-nav">
+                <button class="btn prev-button" data-slider="slider-1"
+                  style="font-size: 4rem; padding: 2rem; margin-left: 40px; overflow: hidden;">
+                  <span class="uil uil-angle-left-b"></span>
+                </button>
+                <button class="btn next-button" data-slider="slider-1"
+                  style="font-size: 4rem; padding: 2rem; margin-right: 40px; overflow: hidden;">
+                  <span class="uil uil-angle-right-b"></span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="container-custom2">
+      <div class="mb-6 mb-lg-7 mb-xl-10 card-slider" id="slider-2">
+        <h1 class="fs-5 fs-md-3 fs-xxl-2 text-secondary text-capitalize text-md-end fw-light mb-13 mb-lg-7">
+          <span class="fw-bold">Econnect</span><br class="d-sm-none" /> e suas recompensas
+        </h1>
         <div class="mb-4 mb-lg-0">
           <div class="swiper-theme-container position-relative">
-            <div class="swiper-container theme-slider"
+            <div class="swiper-container theme-sliderdiv"
               data-swiper='{"spaceBetween":32,"loop":true,"loopedSlides":5,"breakpoints":{"0":{"slidesPerView":1},"768":{"slidesPerView":2},"1024":{"slidesPerView":3}}}'>
               <div class="swiper-wrapper">
+                <!-- Recompensas -->
                 <div class="product-card swiper-slide">
-                  <div class="product-card-top" style="background-image: url('assets/img/products/products/1.png')">
+                  <div class="product-card-top" style="background-image: url('assets/img/products/products/bonifi.png')">
                     <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
-                        href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Política de descarte </a>
+                        href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Descarte e concorra</a>
                     </div>
                   </div>
                   <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
-                    <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Conheça as
-                      Políticas de descarte
+                    <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">
+                      Conheça nossas bonificações!
                     </h3>
-                    <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">Existem várias
-                      linhas de descarte, cada uma para tipos específicos de resíduos.</p>
-                  </div>
-                </div>
-                <div class="product-card swiper-slide">
-                  <div class="product-card-top"
-                    style="background-image: url('assets/img/products/products/marrom.png')">
-                    <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
-                        href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Política de descarte </a>
-                    </div>
-                  </div>
-                  <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
-                    <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Linha Marrom
-                    </h3>
-                    <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">É
-                      destinada ao descarte de aparelhos de som, TVs, equipamentos de DVD/VHS e televisores de tubo e
-                      plasma. Inclui também filmadores e semelhantes. </p>
-                  </div>
-                </div>
-                <div class="product-card swiper-slide">
-                  <div class="product-card-top" style="background-image: url('assets/img/products/products/azul.png')">
-                    <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
-                        href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Política de descarte </a>
-                    </div>
-                  </div>
-                  <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
-                    <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Linha Azul
-                    </h3>
-                    <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">A azul é voltada
-                      ao
-                      descarte de pequenos eletrodomésticos e ferramentas elétricas. Inclui torradeiras, batedeiras,
-                      aspiradores de pó, ventiladores, mixers, secadores de cabelo, ferramentas elétricas, calculadoras
-                      e rádios.
+                    <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">
+                      A Econnect e as empresas parceiras oferecem benefícios para os que mais descartam.
                     </p>
                   </div>
                 </div>
-                <div class="product-card swiper-slide">
-                  <div class="product-card-top" style="background-image: url('assets/img/products/products/verde.png')">
-                    <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
-                        href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Política de descarte </a>
-                    </div>
-                  </div>
-                  <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
-                    <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Linha Verde
-                    </h3>
-                    <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">Nela, a gente
-                      pode jogar fora aqueles eletrônicos que a gente não usa mais, como computadores, celulares e
-                      tablets.</p>
-                  </div>
-                </div>
-                <div class="product-card swiper-slide">
-                  <div class="product-card-top"
-                    style="background-image: url('assets/img/products/products/branca.png')">
-                    <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
-                        href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Política de descarte</a>
-                    </div>
-                  </div>
-                  <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
-                    <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Linha Branca
-                    </h3>
-                    <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">"A linha branca é
-                      para o descarte de grandes eletrodomésticos, como geladeiras, freezers, máquinas de lavar, fogões
-                      e ar condicionados. Inclui também micro-ondas e outros equipamentos similares. Deposite esses
-                      itens nesta linha para um descarte apropriado </p>
-                  </div>
-                </div>
+                <!-- Outros Cards continuam aqui -->
               </div>
             </div>
             <div class="slider-nav">
@@ -336,100 +384,10 @@
                 <span class="uil uil-angle-right-b"></span>
               </button>
             </div>
-
-          </div>
-        </div>
-      </div>
-    </section>
-    <div class="mb-6 mb-lg-7 mb-xl-10 card-slider" id="slider-2">
-      <h1 class="fs-5 fs-md-3 fs-xxl-2 text-secondary text-capitalize text-md-end fw-light mb-13 mb-lg-7"> <span
-          class="fw-bold">Econnect</span><br class="d-sm-none" /> e suas recompensas</h1>
-      <div class="mb-4 mb-lg-0">
-        <div class="swiper-theme-container position-relative">
-          <div class="swiper-container theme-sliderdiv"
-            data-swiper='{"spaceBetween":32,"loop":true,"loopedSlides":5,"breakpoints":{"0":{"slidesPerView":1},"768":{"slidesPerView":2},"1024":{"slidesPerView":3}}}'>
-            <div class="swiper-wrapper">
-              <div class="product-card swiper-slide">
-                <div class="product-card-top" style="background-image: url('assets/img/products/products/bonifi.png')">
-                  <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
-                      href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Descarte e concorra</a>
-                  </div>
-                </div>
-                <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
-                  <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">
-                    Conheça nossas bonificações!</h3>
-                  <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">A Econnect e as
-                    empresas parceiras oferecem benefícios para os que mais descartam.</p>
-                </div>
-              </div>
-              <div class="product-card swiper-slide">
-                <div class="product-card-top" style="background-image: url('assets/img/products/products/descont.png')">
-                  <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
-                      href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Descarte e concorra </a>
-                  </div>
-                </div>
-                <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
-                  <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Descontos</h3>
-                  <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">Descontos em
-                    compras futuras permitem que os que descartam corretamente economizem em suas próximas compras.
-                  </p>
-                </div>
-              </div>
-              <div class="product-card swiper-slide">
-                <div class="product-card-top" style="background-image: url('assets/img/products/products/brinde.png')">
-                  <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
-                      href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Descarte e concorra </a>
-                  </div>
-                </div>
-                <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
-                  <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Brindes
-                  </h3>
-                  <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">São uma forma de
-                    ser surpreendido e agradado pelas empresas parceiras, adicionando um toque pessoal à experiência
-                    de compra e descarte.</p>
-                </div>
-              </div>
-              <div class="product-card swiper-slide">
-                <div class="product-card-top" style="background-image: url('assets/img/products/products/sorteio.png')">
-                  <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
-                      href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Descarte e concorra </a>
-                  </div>
-                </div>
-                <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
-                  <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Sorteios</h3>
-                  <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">A participação em
-                    sorteios oferece aos clientes a chance de ganhar prêmios exclusivos.</p>
-                </div>
-              </div>
-              <div class="product-card swiper-slide">
-                <div class="product-card-top" style="background-image: url('assets/img/products/products/cupon.png')">
-                  <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
-                      href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Descarte e concorra</a>
-                  </div>
-                </div>
-                <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
-                  <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Vouchers e
-                    Cupons</h3>
-                  <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">Proporcionam
-                    economia imediata em compras, incentivando o retorno das práticas de descarte. </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="slider-nav">
-            <button class="btn prev-button" data-slider="slider-1"
-              style="font-size: 4rem; padding: 2rem; margin-left: 40px; overflow: hidden;">
-              <span class="uil uil-angle-left-b"></span>
-            </button>
-            <button class="btn next-button" data-slider="slider-1"
-              style="font-size: 4rem; padding: 2rem; margin-right: 40px; overflow: hidden;">
-              <span class="uil uil-angle-right-b"></span>
-            </button>
           </div>
         </div>
       </div>
     </div>
-
 
     <section class="mb-9 mb-lg-10 mb-xxl-11 text-center text-lg-start mt-1 card-formss" id="support">
       <div class="row g-4 g-lg-6 g-xl-7 pt-6">
@@ -442,7 +400,7 @@
             Entre <br />em <span class="fw-bold">Contato</span>
           </h1>
 
-          <form method="POST" action="process_form.php">
+          <form id="contactForm" method="POST" action="">
             <div class="mb-3">
               <label for="name" class="form-label">Nome</label>
               <input id="name" class="form-control" type="text" name="name" placeholder="Seu nome" required />
@@ -453,12 +411,18 @@
             </div>
             <div class="mb-3">
               <label for="message" class="form-label">Mensagem</label>
-              <textarea id="message" class="form-control" name="message" rows="4" placeholder="Sua mensagem"
-                required></textarea>
+              <textarea id="message" class="form-control" name="message" rows="4" placeholder="Sua mensagem" required></textarea>
             </div>
             <button class="btn btn-primary shadow-none submit-button" type="submit">Enviar</button>
           </form>
 
+          <!-- Modal -->
+          <div id="popupModal" class="modal">
+            <div class="modal-content">
+              <h2 id="popupMessage"></h2>
+              <button onclick="closeModal()">OK</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -497,45 +461,51 @@
 
         </div>
       </div>
-      <style>
-        html,
-        body {
-          height: 100%;
-          margin: 0;
+      <script>
+        // Verifica o parâmetro da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+
+        if (status === 'success') {
+          // Mostra o alerta de sucesso
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Formulário enviado com sucesso!',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else if (status === 'error') {
+          // Mostra o alerta de erro
+          Swal.fire({
+            title: 'Erro',
+            text: 'Não foi possível finalizar seu formulário',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+          });
         }
 
-        .wrapper {
-          min-height: 100%;
-          display: flex;
-          flex-direction: column;
-        }
+        document.addEventListener("DOMContentLoaded", function() {
+          const texts = ["pessoas", "tecnologia", "sustentabilidade"];
+          let currentIndex = 0;
+          const rotatingTextElement = document.getElementById("rotating-text");
 
-        .content {
-          flex: 1;
-        }
+          function rotateText() {
+            // Adiciona classe para esconder o texto antes da troca
+            rotatingTextElement.classList.add("hidden");
 
-        footer {
-          background-image: url('assets/img/illustrations/BOTTOM.png');
-          background-size: cover;
-          background-position: center;
-          padding: 20px 0;
-          position: relative;
-          width: 100%;
-        }
+            setTimeout(() => {
+              // Troca o texto
+              rotatingTextElement.textContent = texts[currentIndex];
+              rotatingTextElement.classList.remove("hidden");
+              currentIndex = (currentIndex + 1) % texts.length;
+            }, 500); // 500ms coincide com a transição do CSS
+          }
 
-        .bg-success {
-          background-color: #28a745;
-          color: #fff;
-        }
-
-        .card-slider {
-          width: 96vw !important;
-        }
-
-        .card-formss {
-          width: 96vw !important;
-        }
-      </style>
+          // Troca o texto a cada 3 segundos
+          setInterval(rotateText, 3000);
+        });
+      </script>
     </footer>
 
     </div>
@@ -560,7 +530,7 @@
   <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
   <script src="vendors/list.js/list.min.js"></script>
   <script src="assets/js/theme.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
