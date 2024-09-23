@@ -129,7 +129,7 @@ $result = $conn->query($sql);
 
 <header>
     <h2>Painel Administrativo</h2>
-    <a href="logout.php">Logout</a>
+    <a href="logout.php">Sair</a>
 </header>
 
 <main>
