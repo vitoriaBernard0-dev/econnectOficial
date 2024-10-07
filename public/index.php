@@ -116,7 +116,7 @@ $conn->close();
             <div class="col-12 col-lg-6">
               <h1 class="fs-5 fs-md-3 fs-xxl-2 text-black fw-light mb-4">
                 Conectando
-                <span class="fw-bold" id="rotating-text">pessoas, tecnologia e sustentabilidade</span>
+                <span class="fw-bold" id="rotating-text">indivíduos, tecnologia e sustentabilidade</span>
                 <br class="d-sm-none d-md-block d-xxl-none" />
                 <span class="text-gradient fw-bold">Econnect</span>
               </h1>
@@ -157,7 +157,7 @@ $conn->close();
 
 
     </div>
-    </section>
+    </>
     <section class="mb-9 mb-lg-10 mb-xxl-11 text-center text-lg-start" id="about">
       <div class="container-custom">
         <h1 class="fs-5 fs-lg-3 fs-xl-2 text-secondary text-capitalize fw-light mb-x1">
@@ -345,49 +345,115 @@ $conn->close();
         </div>
       </div>
     </section>
-    <div class="container-custom2">
-      <div class="mb-6 mb-lg-7 mb-xl-10 card-slider" id="slider-2">
-        <h1 class="fs-5 fs-md-3 fs-xxl-2 text-secondary text-capitalize text-md-end fw-light mb-13 mb-lg-7">
-          <span class="fw-bold">Econnect</span><br class="d-sm-none" /> e suas recompensas
-        </h1>
-        <div class="mb-4 mb-lg-0">
-          <div class="swiper-theme-container position-relative">
-            <div class="swiper-container theme-sliderdiv"
-              data-swiper='{"spaceBetween":32,"loop":true,"loopedSlides":5,"breakpoints":{"0":{"slidesPerView":1},"768":{"slidesPerView":2},"1024":{"slidesPerView":3}}}'>
-              <div class="swiper-wrapper">
-                <!-- Recompensas -->
-                <div class="product-card swiper-slide">
-                  <div class="product-card-top" style="background-image: url('assets/img/products/products/bonifi.png')">
-                    <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
-                        href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Descarte e concorra</a>
+    <section class="mb-9 mb-lg-10 mb-xxl-11 text-center text-md-start card-slider" id="products">
+      <div class="container-custom">
+        <div class="mb-6 mb-lg-7 mb-xl-10" id="slider-2">
+          <h1 class="fs-5 fs-md-3 fs-xxl-2 text-secondary text-capitalize text-md-end fw-light mb-13 mb-lg-7"> <span
+              class="fw-bold">Econnect</span><br class="d-sm-none" /> e suas recompensas</h1>
+          <div class="mb-4 mb-lg-0">
+            <div class="swiper-theme-container position-relative">
+              <div class="swiper-container theme-sliderdiv"
+                data-swiper='{"spaceBetween":32,"loop":true,"loopedSlides":5,"breakpoints":{"0":{"slidesPerView":1},"768":{"slidesPerView":2},"1024":{"slidesPerView":3}}}'>
+                <div class="swiper-wrapper">
+                  <div class="product-card swiper-slide">
+                    <div class="product-card-top" style="background-image: url('assets/img/products/products/bonifi.png')">
+                      <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
+                          href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Descarte e concorra</a>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
+                      <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">
+                        Conheça nossas bonificações!</h3>
+                      <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">A Econnect e as
+                        empresas parceiras oferecem benefícios para os que mais descartam.</p>
                     </div>
                   </div>
-                  <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
-                    <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">
-                      Conheça nossas bonificações!
-                    </h3>
-                    <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">
-                      A Econnect e as empresas parceiras oferecem benefícios para os que mais descartam.
-                    </p>
+                  <div class="product-card swiper-slide">
+                    <div class="product-card-top" style="background-image: url('assets/img/products/products/descont.png')">
+                      <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
+                          href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Descarte e concorra </a>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
+                      <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Descontos</h3>
+                      <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">Descontos em
+                        compras futuras permitem que os que descartam corretamente economizem em suas próximas compras.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="product-card swiper-slide">
+                    <div class="product-card-top" style="background-image: url('assets/img/products/products/brinde.png')">
+                      <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
+                          href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Descarte e concorra </a>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
+                      <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Brindes
+                      </h3>
+                      <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">São uma forma de
+                        ser surpreendido e agradado pelas empresas parceiras, adicionando um toque pessoal à experiência
+                        de compra e descarte.</p>
+                    </div>
+                  </div>
+                  <div class="product-card swiper-slide">
+                    <div class="product-card-top" style="background-image: url('assets/img/products/products/sorteio.png')">
+                      <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
+                          href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Descarte e concorra </a>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
+                      <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Sorteios</h3>
+                      <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">A participação em
+                        sorteios oferece aos clientes a chance de ganhar prêmios exclusivos.</p>
+                    </div>
+                  </div>
+                  <div class="product-card swiper-slide">
+                    <div class="product-card-top" style="background-image: url('assets/img/products/products/cupon.png')">
+                      <div class="add-section"><a class="fs-10 fs-md-9 d-flex flex-column flex-xl-row align-items-center"
+                          href="#!"><span class="uil uil-file-heart me-1 align-middle"></span>Descarte e concorra</a>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column gap-x1 p-x1 pb-5 product-card-body">
+                      <h3 class="text-success fw-semi-bold text-center line-clamp-1 fs-8 fs-md-11 fs-xxl-7">Vouchers e
+                        Cupons</h3>
+                      <p class="text-dark fs-10 fs-md-9 fs-xl-8 text-capitalize lh-xl mb-0 line-clamp-3">Proporcionam
+                        economia imediata em compras, incentivando o retorno das práticas de descarte. </p>
+                    </div>
                   </div>
                 </div>
-                <!-- Outros Cards continuam aqui -->
               </div>
-            </div>
-            <div class="slider-nav">
-              <button class="btn prev-button" data-slider="slider-1"
-                style="font-size: 4rem; padding: 2rem; margin-left: 40px; overflow: hidden;">
-                <span class="uil uil-angle-left-b"></span>
-              </button>
-              <button class="btn next-button" data-slider="slider-1"
-                style="font-size: 4rem; padding: 2rem; margin-right: 40px; overflow: hidden;">
-                <span class="uil uil-angle-right-b"></span>
-              </button>
+              <div class="slider-nav">
+                <button class="btn prev-button" data-slider="slider-1"
+                  style="font-size: 4rem; padding: 2rem; margin-left: 40px; overflow: hidden;">
+                  <span class="uil uil-angle-left-b"></span>
+                </button>
+                <button class="btn next-button" data-slider="slider-1"
+                  style="font-size: 4rem; padding: 2rem; margin-right: 40px; overflow: hidden;">
+                  <span class="uil uil-angle-right-b"></span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
+    <style>
+      .container-custom2 {
+        padding-left: 3rem;
+        /* Aumentando o espaçamento para 3rem */
+        padding-right: 3rem;
+        /* Aumentando o espaçamento para 3rem */
+      }
+
+      @media (min-width: 992px) {
+        .container-custom {
+          padding-left: 6rem;
+          /* Aumentando o espaçamento para 6rem em telas grandes */
+          padding-right: 6rem;
+          /* Aumentando o espaçamento para 6rem em telas grandes */
+        }
+      }
+    </style>
 
     <section class="mb-9 mb-lg-10 mb-xxl-11 text-center text-lg-start mt-1 card-formss" id="support">
       <div class="row g-4 g-lg-6 g-xl-7 pt-6">
@@ -486,7 +552,7 @@ $conn->close();
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-          const texts = ["pessoas", "tecnologia", "sustentabilidade"];
+          const texts = ["indivíduos", "tecnologia", "sustentabilidade"];
           let currentIndex = 0;
           const rotatingTextElement = document.getElementById("rotating-text");
 
